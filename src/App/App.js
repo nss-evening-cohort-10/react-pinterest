@@ -13,6 +13,7 @@ firebaseConnection();
 class App extends React.Component {
   state = {
     authed: false,
+    selectedBoardId: null,
   }
 
   componentDidMount() {
@@ -29,6 +30,10 @@ class App extends React.Component {
     this.removeListener();
   }
 
+  setSingleBoard = (selectedBoardId) => {
+    this.setState({ selectedBoardId });
+  }
+
   render() {
     const { authed } = this.state;
 
@@ -39,7 +44,7 @@ class App extends React.Component {
         {/* if they are authenticated, load the board */}
         {/* else show login button */}
         {
-          (authed) ? (<BoardsContainer />) : (<Auth />)
+          (authed) ? (<BoardsContainer setSingleBoard={this.setSingleBoard} />) : (<Auth />)
         }
       </div>
     );
